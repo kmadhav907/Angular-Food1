@@ -1,0 +1,116 @@
+<nav class="navbar navbar-dark bg-warning">
+  <div class="container-fluid">
+    <h1>Food BLOG</h1>
+    <div class="d-flex">
+      <button
+        class="btn btn-success"
+        data-toggle="modal"
+        data-target="#exampleModal"
+        (click)="clickAddedBlog()"
+      >
+        Add Post
+      </button>
+    </div>
+  </div>
+</nav>
+<div style="margin-top: 25px"></div>
+<div class="row row-cols-1 row-cols-md-2 g-4" style="padding: 5px">
+  <div class="col-5" *ngFor="let blog of foodBlogData">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">{{ blog.foodName }}</h5>
+        <p class="card-text">
+          {{ blog.foodDescription }}
+        </p>
+        <button
+          class="btn btn-primary"
+          style="margin: 5px"
+          data-toggle="modal"
+          data-target="#exampleModal"
+          (click)="editBlog(blog)"
+        >
+          EDIT
+        </button>
+        <button class="btn btn-danger" (click)="deleteFoodBlog(blog)">
+          DELETE
+        </button>
+      </div>
+    </div>
+  </div>
+  <div
+    class="modal fade"
+    id="exampleModal"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Food BLOG DETAILS</h5>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="formValue">
+            <div class="form-group">
+              <label for="exampleInputEmail1">Food Name</label>
+              <input
+                type="text"
+                class="form-control"
+                formControlName="foodName"
+                id="exampleInputEmail1"
+                aria-describedby="emailHelp"
+                placeholder="Enter the food name"
+              />
+            </div>
+            <div class="form-group">
+              <label for="description">Description</label>
+              <textarea
+                type="text"
+                formControlName="foodDescription"
+                class="form-control"
+                id="description"
+                placeholder="Add your description"
+              >
+              </textarea>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            id="cancel"
+            class="btn btn-secondary"
+            data-dismiss="modal"
+          >
+            Close
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            (click)="postFoodBlogDetails()"
+            *ngIf="showAdd"
+          >
+            Add
+          </button>
+          <button
+            type="button"
+            *ngIf="showUpdate"
+            class="btn btn-primary"
+            (click)="updateBlogDetails()"
+          >
+            Update
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
